@@ -55,9 +55,7 @@
    "lint-staged": {
       "*.{js,html,css}": [
          "prettier --write",
-         "npm run lint:fix",
-         "eslint",
-         "git add ."
+         "npm run lint:fix"
       ]
    }
 }
