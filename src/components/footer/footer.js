@@ -6,12 +6,11 @@ import TasksFilter from '../TasksFilter/footer-filter';
 const Footer = ({ complete, clearFunc, toggleFunc }) => {
    const TaskFilterId = 0;
    const [filterId, setTaskFilter] = useState(TaskFilterId);
-   console.log(filterId);
+
    function changeFilter(id) {
       const index = Number(id.target.id.slice(-1));
       setTaskFilter(index);
       toggleFunc(index);
-      // console.log(index);
    }
    return (
       <div className="footer">
@@ -28,4 +27,7 @@ const Footer = ({ complete, clearFunc, toggleFunc }) => {
    );
 };
 
+Footer.defaultProps = {
+   complete: 0,
+};
 export default Footer;

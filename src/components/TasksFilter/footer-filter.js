@@ -1,14 +1,7 @@
 import React from 'react';
-
 import './footer-filter.css';
 
 const TasksFilter = ({ filterState, filterFunc }) => {
-   console.log(filterState);
-
-   // const handleClick = (e) => {
-   //    let x = e.target.id;
-   //    filterFunc(x);
-   // };
    return (
       <div className="footer__filter">
          <div>
@@ -30,4 +23,7 @@ const TasksFilter = ({ filterState, filterFunc }) => {
    );
 };
 
+TasksFilter.defaultProps = {
+   filterState: 0,
+};
 export default TasksFilter;

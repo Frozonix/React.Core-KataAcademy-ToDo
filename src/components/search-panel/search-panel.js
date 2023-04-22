@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ItemStatusFilter from '../item-status-filter/item-status-filter';
 import './search-panel.css';
 
 const NewTaskForm = ({ addFunc }) => {
@@ -7,7 +6,6 @@ const NewTaskForm = ({ addFunc }) => {
    const handleFormChanges = (e) => {
       e.preventDefault();
       addNewTask(e.target.value);
-      // console.log(e.target.value);
    };
    const handleSubmitForm = (e) => {
       e.preventDefault();
@@ -16,8 +14,13 @@ const NewTaskForm = ({ addFunc }) => {
    };
    return (
       <form className="search-panel-wrapper" onSubmit={handleSubmitForm}>
-         <input placeholder="What needs to be done?" className="search-panel" autoFocus onChange={handleFormChanges} value={value}></input>
-         <ItemStatusFilter />
+         <input
+            placeholder="What needs to be done?"
+            className="search-panel"
+            autoFocus
+            onChange={handleFormChanges}
+            value={value}
+         ></input>
       </form>
    );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './todo-list-item-info.css';
-// берутся значения из атрибутов в файле todo-list.js - они и являются пропсами
+
 const TaskListItem = ({ task, time, status, completeFunc, changeFunc, acceptFunc, id }) => {
    let className = 'description ' + status;
 

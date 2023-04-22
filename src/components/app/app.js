@@ -14,23 +14,15 @@ const App = () => {
       // { status: '', task: 'Active task', time: new Date(2023, 3, 17, 12, 0, 0), id: 3, display: 'show' },
    ];
 
-   // const TaskFilter = [
-   //    { isActive: true, className: 'selected' },
-   //    { isActive: false, className: '' },
-   //    { isActive: false, className: '' },
-   // ];
-
    const [data, setDataState] = useState(todoData);
    let tasksComplete = tasksCompleteFunc(data);
 
    function toggleTaskList(index) {
-      console.log(index);
       function showTaskList() {
          return data.map((item) => {
             return { ...item, display: 'show' };
          });
       }
-
       switch (index) {
          case 0:
             {
@@ -70,10 +62,6 @@ const App = () => {
       }
    }
 
-   // function changeFilter(id) {
-   //    console.log(id);
-   // }
-
    function tasksCompleteFunc(arr) {
       return arr.reduce((acc, item) => (item.status === 'completed' ? acc + 1 : acc), 0);
    }
@@ -83,6 +71,7 @@ const App = () => {
          return elem.id === id;
       });
    };
+
    const clearCompleted = () => {
       const newArray = [];
       data.forEach((elem) => {
@@ -101,12 +90,12 @@ const App = () => {
          id: maxId++,
          display: 'show',
       };
-      console.log(task);
       setDataState((data) => {
          const newArray = [...data, newTask];
          return newArray;
       });
    };
+
    const handleComplete = (status, id) => {
       const i = getIndex(data, id);
       const newArray = data.map((item, index) => {
@@ -117,12 +106,11 @@ const App = () => {
                return { ...item, status: 'completed' };
             }
          }
-         // tasksComplete = tasksCompleteFunc(data);
          return item;
       });
+
       tasksComplete;
       setDataState(newArray);
-      // console.log(data);
    };
 
    const handleDeleteBtn = (id) => {
@@ -132,6 +120,7 @@ const App = () => {
       newArray.splice(indexDelete, 1);
       setDataState(newArray);
    };
+
    const handleEditBtn = (id) => {
       let newArray = [...data];
       const indexEdit = getIndex(newArray, id);
@@ -145,6 +134,7 @@ const App = () => {
          setDataState(newArray);
       }
    };
+
    const acceptChanges = (obj) => {
       let newArray = [...data];
       const indexAccept = getIndex(newArray, obj.id);
@@ -152,22 +142,19 @@ const App = () => {
 
       setDataState(newArray);
    };
-   // const handleComplete = (id) => {
-   //    console.log(id);
-   //    const newArray = [...data];
-   //    const indexDelete = newArray.findIndex((elem) => {
-   //       return elem.id === id;
-   //    });
 
-   //    newArray.splice(indexDelete, 1);
-   //    taskDelete(newArray);
-   // };
    return (
       <section className="app-wrapper">
          <AppHeader />
          <div className="app-interface">
             <NewTaskForm addFunc={addItem} />
-            <TaskList todos={data} deleteFunc={handleDeleteBtn} completeFunc={handleComplete} editFunc={handleEditBtn} acceptFunc={acceptChanges} />
+            <TaskList
+               todos={data}
+               deleteFunc={handleDeleteBtn}
+               completeFunc={handleComplete}
+               editFunc={handleEditBtn}
+               acceptFunc={acceptChanges}
+            />
             <Footer complete={tasksComplete} clearFunc={clearCompleted} toggleFunc={toggleTaskList} />
          </div>
       </section>

@@ -1,0 +1,22 @@
+{
+   "env": {
+      "browser": true,
+      "es6": true,
+      "node": true
+   },
+   "parserOptions": {
+      "sourceType": "module",
+      "ecmaFeatures": { "jsx": true },
+      "ecmaVersion": "latest"
+   },
+   "extends": ["airbnb/hooks"],
+   "rules": {
+      "no-console": "warn",
+      "no-alert": "warn",
+      "max-len": ["error", 150],
+      "no-tabs": "off",
+      "prefer-destructuring": "off",
+      "indent": ["off", "tab"]
+   }
+}
+
