@@ -21,8 +21,8 @@
       "eject": "react-scripts eject",
       "lint": "eslint ./src",
       "lint:fix": "eslint ./src --fix  --color",
-      "prepare": "npx husky install",
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "prepare": "npx husky install"
    },
    "eslintConfig": {
       "extends": [
@@ -52,7 +52,7 @@
       "eslint-plugin-jsx-a11y": "^6.7.1",
       "eslint-plugin-react": "^7.32.2",
       "eslint-plugin-react-hooks": "^4.6.0",
-      "husky": "^4.3.8",
+      "husky": "^8.0.0",
       "lint-staged": "^13.2.1"
    },
    "lint-staged": {
