@@ -3,10 +3,7 @@ import './search-panel.css'
 
 function NewTaskForm({ addFunc }) {
   const [value, addNewTask] = useState('')
-  const handleFormChanges = (e) => {
-    e.preventDefault()
-    addNewTask(e.target.value)
-  }
+  const handleFormChanges = (e) => addNewTask(e.target.value)
   const handleSubmitForm = (e) => {
     e.preventDefault()
     addNewTask('')

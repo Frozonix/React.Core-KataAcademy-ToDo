@@ -75,17 +75,19 @@ function App() {
   }
 
   const addItem = (task) => {
-    const newTask = {
-      status: '',
-      task,
-      time: Date.now(),
-      id: maxId++,
-      display: 'show',
+    if (task && task.trim() !== '') {
+      const newTask = {
+        status: '',
+        task,
+        time: Date.now(),
+        id: maxId++,
+        display: 'show',
+      }
+      setDataState((d) => {
+        const newArray = [...d, newTask]
+        return newArray
+      })
     }
-    setDataState((d) => {
-      const newArray = [...d, newTask]
-      return newArray
-    })
   }
 
   const handleComplete = (status, id) => {
