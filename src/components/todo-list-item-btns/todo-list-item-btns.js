@@ -1,15 +1,15 @@
-import React from 'react';
-import './todo-list-item-btns.css';
+import React from 'react'
+import './todo-list-item-btns.css'
 
-const TaskBtns = ({ status, deleteFunc, id, editFunc }) => {
-   if (status !== 'editing') {
-      return (
-         <div className="item-btns-group">
-            <button onClick={() => editFunc(id)}></button>
-            <button onClick={() => deleteFunc(id)}></button>
-         </div>
-      );
-   }
-};
+function TaskBtns({ status, deleteFunc, id, editFunc }) {
+  if (status !== 'editing') {
+    return (
+      <div className="item-btns-group">
+        <button type="button" onClick={() => editFunc(id)} aria-label="Edit" />
+        <button type="button" onClick={() => deleteFunc(id)} aria-label="Delete" />
+      </div>
+    )
+  }
+}
 
-export default TaskBtns;
+export default TaskBtns
