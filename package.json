@@ -22,7 +22,8 @@
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix  --color",
     "pre-commit": "lint-staged",
-    "prepare": "npx husky install"
+    "prepare": "npx husky install",
+    "format": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
