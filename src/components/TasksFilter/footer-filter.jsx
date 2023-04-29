@@ -3,7 +3,7 @@ import './footer-filter.css'
 
 function TasksFilter({ filterState, filterFunc }) {
   return (
-    <div className="footer__filter">
+    <div className="footer__filter" id="footerFilter">
       <div>
         <button
           id="filter-btn-0"

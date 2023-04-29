@@ -22,11 +22,11 @@ function genId() {
   }
 }
 const generate = genId()
+let saveState
 
 function App() {
   const todoData = []
   const [data, setDataState] = useState(todoData)
-  //   const [backupData, setBackup] = useState(data)
 
   function tasksCompleteFunc(arr) {
     return arr.reduce((acc, item) => (item.status === 'completed' ? acc + 1 : acc), 0)
@@ -34,43 +34,26 @@ function App() {
   const tasksComplete = tasksCompleteFunc(data)
 
   function toggleTaskList(index) {
-    //  if (index === 0) {
-    //    backupData = [...data]
-    //    setDataState(backupData)
-    //  }
-
-    function showTaskList() {
-      return data.map((item) => ({ ...item, display: 'show' }))
-    }
+    const getClass = document.getElementById('footerFilter').firstElementChild.firstElementChild.className
     switch (index) {
       case 0:
-        {
-          const newArray = showTaskList()
-          setDataState(newArray)
-        }
+        setDataState(saveState)
         break
-
       case 1:
         {
-          let newArray = showTaskList()
-          newArray = newArray.map((item) => {
-            if (item.status === 'completed') {
-              return { ...item, display: null }
-            }
-            return { ...item, display: 'show' }
-          })
+          if (getClass) {
+            saveState = [...data]
+          }
+          const newArray = saveState.filter((item) => item.status === '')
           setDataState(newArray)
         }
         break
       case 2:
         {
-          let newArray = showTaskList()
-          newArray = newArray.map((item) => {
-            if (item.status === 'completed') {
-              return { ...item, display: 'show' }
-            }
-            return { ...item, display: null }
-          })
+          if (getClass) {
+            saveState = [...data]
+          }
+          const newArray = saveState.filter((item) => item.status === 'completed')
           setDataState(newArray)
         }
         break
@@ -108,7 +91,6 @@ function App() {
   }
 
   const handleComplete = (status, id) => {
-    console.log(id)
     const i = getIndex(data, id)
     const newArray = data.map((item, index) => {
       if (i === index) {
