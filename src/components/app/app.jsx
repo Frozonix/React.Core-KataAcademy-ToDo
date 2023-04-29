@@ -6,14 +6,25 @@ import TaskList from '../todo-list/todo-list'
 import './app.css'
 import Footer from '../footer/footer'
 
-let maxId = 4
-function App() {
-  const todoData = [
-    // { status: 'completed', task: 'Completed', time: new Date(2023, 3, 18, 14, 25, 20), id: 1, display: 'show' },
-    // { status: 'editing', task: 'Make awesome app', time: new Date(2023, 3, 18, 10, 0, 0), id: 2, display: 'show' },
-    // { status: '', task: 'Active task', time: new Date(2023, 3, 17, 12, 0, 0), id: 3, display: 'show' },
-  ]
+function genId() {
+  const IDs = []
+  return function g() {
+    let generate
+    for (let i = 0; i < 100; i++) {
+      generate = Math.floor(Math.random() * 10000)
+      const result = IDs.indexOf(generate)
+      if (result === -1) {
+        break
+      }
+    }
+    IDs.push(generate)
+    return generate
+  }
+}
+const generate = genId()
 
+function App() {
+  const todoData = []
   const [data, setDataState] = useState(todoData)
 
   function tasksCompleteFunc(arr) {
@@ -22,6 +33,11 @@ function App() {
   const tasksComplete = tasksCompleteFunc(data)
 
   function toggleTaskList(index) {
+    //  if (index === 0) {
+    //    backupData = [...data]
+    //    setDataState(backupData)
+    //  }
+
     function showTaskList() {
       return data.map((item) => ({ ...item, display: 'show' }))
     }
@@ -80,7 +96,7 @@ function App() {
         status: '',
         task,
         time: Date.now(),
-        id: maxId++,
+        id: generate(data),
         display: 'show',
       }
       setDataState((d) => {

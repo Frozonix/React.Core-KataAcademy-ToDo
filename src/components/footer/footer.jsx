@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import './footer.css'
 import TasksFilter from '../TasksFilter/footer-filter'
 
-function Footer({ complete, clearFunc, toggleFunc }) {
+export default function Footer({ complete, clearFunc, toggleFunc }) {
   const TaskFilterId = 0
   const [filterId, setTaskFilter] = useState(TaskFilterId)
 
@@ -30,4 +30,3 @@ function Footer({ complete, clearFunc, toggleFunc }) {
 Footer.defaultProps = {
   complete: 0,
 }
-export default Footer
