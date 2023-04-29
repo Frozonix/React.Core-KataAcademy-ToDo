@@ -26,6 +26,7 @@ const generate = genId()
 function App() {
   const todoData = []
   const [data, setDataState] = useState(todoData)
+  //   const [backupData, setBackup] = useState(data)
 
   function tasksCompleteFunc(arr) {
     return arr.reduce((acc, item) => (item.status === 'completed' ? acc + 1 : acc), 0)
@@ -107,6 +108,7 @@ function App() {
   }
 
   const handleComplete = (status, id) => {
+    console.log(id)
     const i = getIndex(data, id)
     const newArray = data.map((item, index) => {
       if (i === index) {
