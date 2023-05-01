@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import AppHeader from '../app-header/app-header'
 import NewTaskForm from '../search-panel/search-panel'
@@ -22,43 +22,26 @@ function genId() {
   }
 }
 const generate = genId()
-let saveState
 
 function App() {
   const todoData = []
   const [data, setDataState] = useState(todoData)
+  const [filtered, setFiltered] = useState(data)
 
+  useEffect(() => {
+    setFiltered(data)
+  }, [data])
   function tasksCompleteFunc(arr) {
     return arr.reduce((acc, item) => (item.status === 'completed' ? acc + 1 : acc), 0)
   }
   const tasksComplete = tasksCompleteFunc(data)
 
-  function toggleTaskList(index) {
-    const getClass = document.getElementById('footerFilter').firstElementChild.firstElementChild.className
-    switch (index) {
-      case 0:
-        setDataState(saveState)
-        break
-      case 1:
-        {
-          if (getClass) {
-            saveState = [...data]
-          }
-          const newArray = saveState.filter((item) => item.status === '')
-          setDataState(newArray)
-        }
-        break
-      case 2:
-        {
-          if (getClass) {
-            saveState = [...data]
-          }
-          const newArray = saveState.filter((item) => item.status === 'completed')
-          setDataState(newArray)
-        }
-        break
-      default:
-        break
+  function toggleTaskList(id) {
+    if (id === 'all') {
+      setFiltered(data)
+    } else {
+      const newArray = data.filter((item) => item.status === id)
+      setFiltered(newArray)
     }
   }
 
@@ -75,9 +58,9 @@ function App() {
   }
 
   const addItem = (task) => {
-    if (task && task.trim() !== '') {
+    if (task && task.trim() !== 'active') {
       const newTask = {
-        status: '',
+        status: 'active',
         task,
         time: Date.now(),
         id: generate(data),
@@ -94,8 +77,8 @@ function App() {
     const i = getIndex(data, id)
     const newArray = data.map((item, index) => {
       if (i === index) {
-        if (status) {
-          return { ...item, status: '' }
+        if (status === 'completed') {
+          return { ...item, status: 'active' }
         }
         return { ...item, status: 'completed' }
       }
@@ -132,7 +115,7 @@ function App() {
     const indexAccept = getIndex(newArray, obj.id)
     newArray[indexAccept] = {
       ...newArray[indexAccept],
-      status: '',
+      status: 'active',
       task: obj.value,
     }
 
@@ -145,7 +128,7 @@ function App() {
       <div className="app-interface">
         <NewTaskForm addFunc={addItem} />
         <TaskList
-          todos={data}
+          todos={filtered}
           deleteFunc={handleDeleteBtn}
           completeFunc={handleComplete}
           editFunc={handleEditBtn}

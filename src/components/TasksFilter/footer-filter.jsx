@@ -6,9 +6,9 @@ function TasksFilter({ filterState, filterFunc }) {
     <div className="footer__filter" id="footerFilter">
       <div>
         <button
-          id="filter-btn-0"
+          id="all"
           type="button"
-          className={filterState === 0 ? 'selected' : ''}
+          className={filterState === 'all' ? 'selected' : ''}
           onClick={(e) => filterFunc(e)}
         >
           All
@@ -16,9 +16,9 @@ function TasksFilter({ filterState, filterFunc }) {
       </div>
       <div>
         <button
-          id="filter-btn-1"
+          id="active"
           type="button"
-          className={filterState === 1 ? 'selected' : ''}
+          className={filterState === 'active' ? 'selected' : ''}
           onClick={(e) => filterFunc(e)}
         >
           Active
@@ -26,9 +26,9 @@ function TasksFilter({ filterState, filterFunc }) {
       </div>
       <div>
         <button
-          id="filter-btn-2"
+          id="completed"
           type="button"
-          className={filterState === 2 ? 'selected' : ''}
+          className={filterState === 'completed' ? 'selected' : ''}
           onClick={(e) => filterFunc(e)}
         >
           Completed

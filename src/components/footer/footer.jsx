@@ -7,10 +7,10 @@ export default function Footer({ complete, clearFunc, toggleFunc }) {
   const TaskFilterId = 0
   const [filterId, setTaskFilter] = useState(TaskFilterId)
 
-  function changeFilter(id) {
-    const index = Number(id.target.id.slice(-1))
-    setTaskFilter(index)
-    toggleFunc(index)
+  function changeFilter(event) {
+    const id = event.target.id
+    setTaskFilter(id)
+    toggleFunc(id)
   }
   return (
     <div className="footer">

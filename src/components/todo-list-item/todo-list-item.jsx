@@ -14,7 +14,6 @@ function Task({ task, time, status, deleteFunc, completeFunc, id, display, isChe
     display: status === 'editing' ? 'none' : 'flex',
   }
   const className = display ? 'list-group-item' : 'list-group-item hide'
-  //   console.log(id)
   return (
     <li className={className}>
       <label className="todo-list-item__toggle" style={checkVisibility} htmlFor={id}>
