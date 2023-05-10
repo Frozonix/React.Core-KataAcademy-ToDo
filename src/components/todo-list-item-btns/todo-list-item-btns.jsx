@@ -1,7 +1,7 @@
 import React from 'react'
 import './todo-list-item-btns.css'
 
-function TaskBtns({ status, deleteFunc, id, editFunc }) {
+export function TaskBtns({ status, deleteFunc, id, editFunc }) {
   if (status !== 'editing') {
     return (
       <div className="item-btns-group">
@@ -11,5 +11,3 @@ function TaskBtns({ status, deleteFunc, id, editFunc }) {
     )
   }
 }
-
-export default TaskBtns

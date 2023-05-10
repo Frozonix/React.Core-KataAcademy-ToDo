@@ -2,10 +2,26 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { formatDistanceToNow } from 'date-fns'
 
-import TaskListItem from '../todo-list-item-info/todo-list-item-info'
-import TaskBtns from '../todo-list-item-btns/todo-list-item-btns'
+import { TaskListItem } from '../todo-list-item-info/todo-list-item-info'
+import { TaskBtns } from '../todo-list-item-btns/todo-list-item-btns'
 
-function Task({ task, time, status, deleteFunc, completeFunc, id, display, isChecked, editFunc, acceptFunc }) {
+export function Task({
+  task,
+  time,
+  timer,
+  isCounting,
+  status,
+  deleteFunc,
+  completeFunc,
+  id,
+  display,
+  isChecked,
+  editFunc,
+  acceptFunc,
+  timerUpdateFunc,
+  timerGo,
+  timerStop,
+}) {
   const created = `created ${formatDistanceToNow(time, {
     addSuffix: true,
     includeSeconds: true,
@@ -31,10 +47,15 @@ function Task({ task, time, status, deleteFunc, completeFunc, id, display, isChe
       <TaskListItem
         task={task}
         time={created}
+        timer={timer}
+        isCounting={isCounting}
         status={status}
         completeFunc={() => completeFunc(status, id)}
         acceptFunc={(obj) => acceptFunc(obj)}
         id={id}
+        timerUpdateFunc={() => timerUpdateFunc(id)}
+        timerGo={() => timerGo(id)}
+        timerStop={() => timerStop(id)}
       />
       <TaskBtns status={status} deleteFunc={() => deleteFunc(id)} id={id} editFunc={() => editFunc(id)} />
     </li>
@@ -57,4 +78,3 @@ Task.propTypes = {
   display: propTypes.oneOfType([propTypes.string, propTypes.oneOf([null])]),
   isChecked: propTypes.bool,
 }
-export default Task

@@ -1,7 +1,7 @@
 import React from 'react'
 import './footer-filter.css'
 
-function TasksFilter({ filterState, filterFunc }) {
+export function TasksFilter({ filterState, filterFunc }) {
   return (
     <div className="footer__filter" id="footerFilter">
       <div>
@@ -41,4 +41,3 @@ function TasksFilter({ filterState, filterFunc }) {
 TasksFilter.defaultProps = {
   filterState: 0,
 }
-export default TasksFilter

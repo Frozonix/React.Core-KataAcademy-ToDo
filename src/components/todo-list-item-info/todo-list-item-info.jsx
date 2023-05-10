@@ -1,10 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './todo-list-item-info.css'
 
-function TaskListItem({ task, time, status, completeFunc, changeFunc, acceptFunc, id }) {
+export function TaskListItem({
+  task,
+  time,
+  timer,
+  isCounting,
+  status,
+  completeFunc,
+  changeFunc,
+  acceptFunc,
+  id,
+  timerUpdateFunc,
+  timerGo,
+  timerStop,
+}) {
   const className = `description ${status}`
 
   const [stateInfo, editTask] = useState({ value: '', id })
+  const [stateTimer, setStateTimer] = useState(['', ''])
+
+  useEffect(() => {
+    function downTimer() {
+      if (isCounting) {
+        let minutes = Math.floor(timer / 1000 / 60)
+        let seconds = (timer / 1000) % 60
+
+        minutes = minutes < 10 ? `0${minutes}` : minutes
+        seconds = seconds < 10 ? `0${seconds}` : seconds
+
+        if (timer <= 0) {
+          setStateTimer(['00', '00'])
+        } else {
+          setStateTimer([minutes, seconds])
+        }
+
+        timerUpdateFunc(id)
+      }
+    }
+    const x = setInterval(downTimer, 1000)
+    return () => clearInterval(x)
+  }, [id, timer, isCounting, timerUpdateFunc])
 
   const handleFormChanges = (e) => {
     editTask({ value: e.target.value, id })
@@ -39,9 +75,16 @@ function TaskListItem({ task, time, status, completeFunc, changeFunc, acceptFunc
       >
         {task}
       </span>
+      <div className="timer-controls">
+        <button type="button" aria-label="go" onClick={() => timerGo(id)}>
+          &#9654;
+        </button>
+        <button type="button" aria-label="stop" onClick={() => timerStop(id)}>
+          &#10074;&#10074;
+        </button>
+        <p>{stateTimer.join(':')}</p>
+      </div>
       <span className="created">{time}</span>
     </label>
   )
 }
-
-export default TaskListItem

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
 import './footer.css'
-import TasksFilter from '../TasksFilter/footer-filter'
+import { TasksFilter } from '../TasksFilter/footer-filter'
 
-export default function Footer({ complete, clearFunc, toggleFunc }) {
-  const TaskFilterId = 0
+export function Footer({ complete, clearFunc, toggleFunc }) {
+  const TaskFilterId = 'all'
   const [filterId, setTaskFilter] = useState(TaskFilterId)
 
   function changeFilter(event) {

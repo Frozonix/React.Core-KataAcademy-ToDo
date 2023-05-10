@@ -17,12 +17,14 @@
 
   font-size: 24px;
   padding-right: 16px;
+  width: 200px;
 }
 
 .created {
   font-size: 13px;
   color: gray;
   text-align: right;
+  width: 100px;
 }
 
 .description.completed {
@@ -46,7 +48,7 @@
   height: 100%;
 }
 .description.editing form input {
-  width: inherit;
+  width: 100% !important;
   height: inherit;
   padding: 12px 16px;
 
@@ -59,3 +61,22 @@
 /* .description.editing input:focus {
    border: none;
 } */
+.timer-controls {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.timer-controls button {
+  background-color: transparent;
+  border: none;
+  color: #cc9a9a;
+}
+.timer-controls button:hover {
+  color: #af5b5e;
+}
+
+.timer-controls p {
+  margin: 0;
+  margin-left: 5px;
+  color: gray;
+}
