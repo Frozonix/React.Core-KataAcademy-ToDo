@@ -15,7 +15,6 @@ export function TaskList({
 }) {
   const elements = todos.map((item) => {
     const { id = id } = item
-    console.log(todos)
     return (
       <Task
         key={id}

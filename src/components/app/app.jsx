@@ -26,63 +26,50 @@ const generate = genId()
 function App() {
   const todoData = []
   const [data, setDataState] = useState(todoData)
-  const [filteredAll, setAllFiltered] = useState(data)
-  const [filteredActive, setActiveFiltered] = useState(data)
-  const [filteredCompleted, setCompletedFiltered] = useState(data)
-
-  const [filterBtn, setfilterBtn] = useState('all')
+  const [filtered, setFiltered] = useState(data)
+  const [filterBtn, setFilterBtn] = useState('all')
 
   useEffect(() => {
-    if (filterBtn === 'all') {
-      setDataState(filteredAll)
-    } else if (filterBtn === 'active') {
-      setFilter(filteredAll, 'active')
-      setDataState(filteredActive)
-    } else {
-      setFilter(filteredAll, 'completed')
-      setDataState(filteredCompleted)
+    function renderFilter() {
+      if (filterBtn === 'all') {
+        setFiltered(data)
+      } else if (filterBtn === 'active') {
+        const newArray = data.filter((item) => item.status === 'active')
+        setFiltered(newArray)
+      } else {
+        const newArray = data.filter((item) => item.status === 'completed')
+        setFiltered(newArray)
+      }
     }
-  }, [data, filteredAll, filteredActive, filteredCompleted, filterBtn])
+    renderFilter()
+  }, [filterBtn, data])
 
   function tasksCompleteFunc(arr) {
     return arr.reduce((acc, item) => (item.status === 'completed' ? acc + 1 : acc), 0)
   }
   const tasksComplete = tasksCompleteFunc(data)
 
-  function setFilter(d, id) {
-    const newArray = d.filter((item) => item.status === id)
-    if (id === 'active') {
-      setActiveFiltered(newArray)
-    } else {
-      setCompletedFiltered(newArray)
-    }
-    return newArray
-  }
   function toggleTaskList(id) {
-    let newState
     if (id === 'all') {
-      newState = [...filteredAll]
+      setFiltered(data)
+      setFilterBtn('all')
     } else if (id === 'active') {
-      newState = setFilter(filteredAll, id)
-    } else if (id === 'completed') {
-      newState = setFilter(filteredAll, id)
+      setFilterBtn('active')
+    } else {
+      setFilterBtn('completed')
     }
-
-    setDataState(newState)
-    setfilterBtn(id)
   }
 
   const getIndex = (arr, id) => arr.findIndex((elem) => elem.id === id)
 
   const clearCompleted = () => {
     const newArray = []
-    filteredAll.forEach((elem) => {
+    data.forEach((elem) => {
       if (elem.status !== 'completed') {
         newArray.push(elem)
       }
     })
-    setAllFiltered(newArray)
-    //  setDataState(newArray)
+    setDataState(newArray)
   }
 
   function timerUpdateState(id) {
@@ -156,17 +143,13 @@ function App() {
         const newArray = [...d, newTask]
         return newArray
       })
-      setAllFiltered((d) => {
-        const newArray = [...d, newTask]
-        return newArray
-      })
       // setInterval(downTimer.bind(this, newTask.id), 1000)
     }
   }
 
   const handleComplete = (status, id) => {
-    const i = getIndex(filteredAll, id)
-    const newArray = filteredAll.map((item, index) => {
+    const i = getIndex(data, id)
+    const newArray = data.map((item, index) => {
       if (i === index) {
         if (status === 'completed') {
           return { ...item, status: 'active' }
@@ -175,45 +158,42 @@ function App() {
       }
       return item
     })
-    setAllFiltered(newArray)
-    //  setDataState(newArray)
+
+    setDataState(newArray)
   }
 
   const handleDeleteBtn = (id) => {
-    const newArray = [...filteredAll]
+    const newArray = [...data]
     const indexDelete = getIndex(newArray, id)
 
     newArray.splice(indexDelete, 1)
-    setAllFiltered(newArray)
-    //  setDataState(newArray)
+    setDataState(newArray)
   }
 
   const handleEditBtn = (id) => {
-    let newArray = [...filteredAll]
+    let newArray = [...data]
     const indexEdit = getIndex(newArray, id)
-    newArray = filteredAll.map((item, index) => {
+    newArray = data.map((item, index) => {
       if (index === indexEdit && item.status !== 'completed') {
         return { ...item, status: 'editing' }
       }
       return item
     })
-    if (JSON.stringify(filteredAll) !== JSON.stringify(newArray)) {
-      setAllFiltered(newArray)
-      // setDataState(newArray)
+    if (JSON.stringify(data) !== JSON.stringify(newArray)) {
+      setDataState(newArray)
     }
   }
 
   const acceptChanges = (obj) => {
-    const newArray = [...filteredAll]
-
+    const newArray = [...data]
     const indexAccept = getIndex(newArray, obj.id)
     newArray[indexAccept] = {
       ...newArray[indexAccept],
       status: 'active',
       task: obj.value,
     }
-    setAllFiltered(newArray)
-    //  setDataState(newArray)
+
+    setDataState(newArray)
   }
 
   return (
@@ -222,7 +202,7 @@ function App() {
       <div className="app-interface">
         <NewTaskForm addFunc={addItem} />
         <TaskList
-          todos={data}
+          todos={filtered}
           deleteFunc={handleDeleteBtn}
           completeFunc={handleComplete}
           editFunc={handleEditBtn}
