@@ -35,7 +35,6 @@
     "import/prefer-default-export": "off",
 
     "indent": ["off", 2],
-    "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
     "semi": ["warn", "never"],
     "react/react-in-jsx-scope": "off",
