@@ -15,6 +15,12 @@
   },
   "plugins": ["react", "prettier", "import"],
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/state-in-constructor": 0,
     "import/no-named-as-default": 0,
     "import/no-named-as-default-member": 0,
